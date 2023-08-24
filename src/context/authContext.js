@@ -18,7 +18,7 @@ export const AuthContextProvider = ({ children }) => {
     });
     setCurrentUser(res.data);
     document.cookie = res.data.token.split("access_token")
-    console.log(res.data.token.split("access_token"))
+    
   };
 
   const logout = async () => {

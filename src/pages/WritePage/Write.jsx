@@ -39,9 +39,8 @@ const formats = [
   "image",
 ];
 
-
 const Write = (props) => {
-  const { client } = props
+  const { client } = props;
 
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
@@ -63,7 +62,17 @@ const Write = (props) => {
         desc: desc,
         file: fileURL.url,
       };
-      await api.post("/post/new", obj).then(navigate("/"));
+      await api
+        .post(
+          "/post/new",
+          {
+            headers: {
+              Authorization: document.cookie,
+            },
+          },
+          obj
+        )
+        .then(navigate("/"));
     } catch (err) {
       console.log(err);
     } finally {

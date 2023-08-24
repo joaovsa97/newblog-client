@@ -39,7 +39,7 @@ const Register = (props) => {
   };
 
   const handleChange = (e) => {
-    console.log(Inputs);
+    
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
