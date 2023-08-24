@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import * as filestack from "filestack-js";
 import ReactQuill from "react-quill";
 import { api } from "../../services/api.js";
 import Button from "../../components/Button/Button.jsx";
@@ -36,7 +37,8 @@ const formats = [
   "image",
 ];
 
-const EditPage = () => {
+const EditPage = (props) => {
+  const { client } = props
   const { id } = useParams();
 
   const [title, setTitle] = useState("");
@@ -60,27 +62,17 @@ const EditPage = () => {
 
   const navigate = useNavigate();
 
-  const handleUpload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file[0]);
-      const res = await api.post("/upload", formData);
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const fileURL = await handleUpload();
+      const fileURL = await client.upload(file[0]);
+
       const obj = {
         title: title,
         summary: summary,
         desc: desc,
-        file: fileURL,
+        file: fileURL.url,
         oldFile: oldFile
       };
       await api.put(`/post/update/${id}`, obj).then(navigate("/post/" + id));

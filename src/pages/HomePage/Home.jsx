@@ -52,7 +52,7 @@ const Home = () => {
             <Link to={`/post/${post._id}`}>
               <div className="card">
                 <div className="image">
-                  <img src={"http://localhost:8800/" + post.img} alt="" />
+                  <img src={post.img} alt="" />
                 </div>
                 <div className="content">
                   <div className="card-header">

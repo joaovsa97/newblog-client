@@ -4,15 +4,18 @@ import DOMPurify from "dompurify";
 import { format } from "date-fns";
 import { api } from "../../services/api";
 import { AuthContext } from "../../context/authContext";
+import * as filestack from "filestack-js";
+
 import Button from "../../components/Button/Button.jsx";
 import Spinner from "../../components/Spinner/Spinner.jsx";
 import "./style.scss";
 
-const PostPage = () => {
+const PostPage = (props) => {
+  const { client } = props
+
   const navigate = useNavigate();
   const { id } = useParams();
   const [info, setInfo] = useState("");
-  const [file, setFile] = useState("");
 
   const { currentUser } = useContext(AuthContext);
 
@@ -27,18 +30,15 @@ const PostPage = () => {
     };
     fetchData();
   }, [id]);
-  
+
   const handleDelete = async () => {
-    setFile(info[0].img);
-    if (file) {
-      await api
-        .post("/deletefile", {
-          file: file,
-        })
-        .then(api.delete(`/post/delete/${id}`))
+    if (info[0].img) {
+      await client
+        .remove(info[0].img.split("/")[3])
+        .then(await api.delete(`/post/delete/${id}`))
         .then(navigate("/"));
     } else {
-      console.log(file);
+      console.log(info[0].img);
     }
   };
 
@@ -74,7 +74,7 @@ const PostPage = () => {
                   )}
                 </div>
                 <div className="image">
-                  <img src={"http://localhost:8800/" + post.img} alt="" />
+                  <img src={post.img} alt="" />
                 </div>
               </div>
               <div className="content">

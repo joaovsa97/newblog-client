@@ -6,10 +6,19 @@ import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import PostPage from "./pages/PostPage/PostPage.jsx";
 import Write from "./pages/WritePage/Write.jsx";
 import EditPage from "./pages/WritePage/EditPage.jsx";
+import * as filestack from "filestack-js"
 
 import "./App.scss";
 
+const client = filestack.init(process.env.REACT_APP_KEY, {
+  security: {
+    policy: process.env.REACT_APP_POLICY,
+    signature: process.env.REACT_APP_SIGNATURE,
+  },
+});
+
 const Layout = () => {
+  
   return (
     <>
       <Navbar />
@@ -35,21 +44,22 @@ const router = createBrowserRouter([
       },
       {
         path: "/new",
-        element: <Write />,
+        element: <Write client={client}/>,
       },
       {
         path: "/post/:id",
-        element: <PostPage />,
+        element: <PostPage client={client}/>,
       },
       {
         path: "/post/update/:id",
-        element: <EditPage />,
+        element: <EditPage client={client}/>,
       },
     ],
   },
 ]);
 
 function App() {
+
   return (
     <div className="App">
       <RouterProvider router={router} />

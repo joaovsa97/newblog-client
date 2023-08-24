@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as filestack from "filestack-js";
 import ReactQuill from "react-quill";
 import Button from "../../components/Button/Button.jsx";
 import Spinner from "../../components/Spinner/Spinner.jsx";
@@ -38,7 +39,10 @@ const formats = [
   "image",
 ];
 
-const Write = () => {
+
+const Write = (props) => {
+  const { client } = props
+
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [desc, setDesc] = useState("");
@@ -46,29 +50,18 @@ const Write = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  console.log(desc)
-  const handleUpload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file[0]);
-      const res = await api.post("/upload", formData);
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
-      const fileURL = await handleUpload();
+      const fileURL = await client.upload(file[0]);
+
       const obj = {
         title: title,
         summary: summary,
         desc: desc,
-        file: fileURL,
+        file: fileURL.url,
       };
       await api.post("/post/new", obj).then(navigate("/"));
     } catch (err) {
@@ -80,7 +73,7 @@ const Write = () => {
 
   return (
     <div className="postFormContainer">
-      {isLoading && <Spinner message={"Finalizando sua postagem..."}/>}
+      {isLoading && <Spinner message={"Finalizando sua postagem..."} />}
       <form action="" className="postForm" onSubmit={handleSubmit}>
         <input
           type="text"
