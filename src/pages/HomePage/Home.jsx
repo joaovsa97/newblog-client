@@ -5,9 +5,12 @@ import Button from "../../components/Button/Button.jsx";
 
 import { api } from "../../services/api";
 import { AuthContext } from "../../context/authContext.js";
+import Spinner from "../../components/Spinner/Spinner.jsx"
 import "./style.scss";
 
 const Home = () => {
+
+  const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
@@ -20,11 +23,12 @@ const Home = () => {
         console.log(err);
       }
     };
-    fetchData();
+    fetchData().then(() => setIsLoading(false))
   }, []);
 
   return (
     <div className="container">
+      {isLoading && <Spinner message={"Carregando..."} />}
       {posts.length < 1 && (
         <>
           <h1>Infelizmente ainda não há publicações 😢</h1>

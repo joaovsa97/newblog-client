@@ -77,3 +77,26 @@
     }
   }
 }
+
+@media screen and (max-width: 425px){
+  .container{
+    .card{
+      display: flex;
+      flex-direction: column;
+      width: 80vw;
+
+      .image{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        img {
+          border-radius: 16px;
+          width: 100%;
+          object-fit: fill;
+        }
+      }
+    }
+  }
+}
