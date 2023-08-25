@@ -62,17 +62,7 @@ const Write = (props) => {
         desc: desc,
         file: fileURL.url,
       };
-      await api
-        .post(
-          "/post/new",
-          {
-            headers: {
-              Authorization: document.cookie,
-            },
-          },
-          obj
-        )
-        .then(navigate("/"));
+      await api.post("/post/new", obj).then(navigate("/"));
     } catch (err) {
       console.log(err);
     } finally {
