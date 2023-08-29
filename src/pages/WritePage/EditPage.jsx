@@ -106,6 +106,7 @@ const EditPage = (props) => {
         <input
           type="file"
           name="file"
+          accept="image/*"
           onChange={(e) => setFile(e.target.files)}
           required
         />

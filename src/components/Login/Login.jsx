@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext.js";
 import Button from "../Button/Button.jsx";
@@ -17,7 +17,9 @@ const Login = (props) => {
 
   const [msg, setMsg] = useState(null);
 
-  setTimeout(() => setMsg(""), 6000);
+  useEffect(() => {
+    setTimeout(() => setMsg(""), 2000);
+  },[msg])
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -28,8 +30,8 @@ const Login = (props) => {
 
     try {
       await login(Inputs);
-      setTimeout(setMsg("Login efetuado com Sucesso!"), 3000);
-      setTimeout(() => navigate("/"), 1000);
+      setMsg("Login efetuado com Sucesso!");
+      setTimeout(() => navigate("/"), 2000);
     } catch (err) {
       setMsg(err.response.data);
     }
@@ -64,9 +66,10 @@ const Login = (props) => {
         </div>
         <Button text={"Efetuar Login"} />
       </form>
-      <span onClick={() => changeLogin()}>
-        Não possui uma conta? Clique para se cadastrar.
-      </span>
+      <p>
+        Não possui uma conta?
+        <span onClick={() => changeLogin()}> Clique para se cadastrar.</span>
+      </p>
     </div>
   );
 };

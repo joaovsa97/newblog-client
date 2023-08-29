@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import Button from "../Button/Button";
 
@@ -12,9 +12,11 @@ const Register = (props) => {
   });
   const [msg, setMsg] = useState(null);
 
-  setTimeout(() => setMsg(""), 4000);
+  useEffect(() => {
+    setTimeout(() => setMsg(""), 2000);
+  },[msg])
 
-  const handleSubmit = async (e, response) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (Inputs.password === Inputs.confpw) {
       try {
@@ -31,7 +33,8 @@ const Register = (props) => {
           confpw: "",
         });
       } catch (err) {
-        setMsg(err.response);
+        
+        setMsg(err.response.data);
       }
     } else {
       setMsg("As senhas digitadas não conferem");
@@ -39,7 +42,6 @@ const Register = (props) => {
   };
 
   const handleChange = (e) => {
-    
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -97,9 +99,10 @@ const Register = (props) => {
         </div>
         <Button text={"Efetuar Cadastro"} />
       </form>
-      <span onClick={() => changeRegister()}>
-        Já possui uma conta? Clique para acessá-la
-      </span>
+      <p>
+        Já possui uma conta?
+        <span onClick={() => changeRegister()}> Clique para acessá-la</span>
+      </p>
     </div>
   );
 };

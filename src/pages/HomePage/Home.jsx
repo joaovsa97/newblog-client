@@ -24,7 +24,7 @@ const Home = () => {
       }
     };
     fetchData().then(() => setIsLoading(false))
-  }, []);
+  }, [posts]);
 
   return (
     <div className="container">

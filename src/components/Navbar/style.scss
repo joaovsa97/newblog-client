@@ -1,7 +1,7 @@
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 
   position: fixed;
   padding: 8px;
@@ -56,8 +56,24 @@
   }
 }
 
-@media screen and (max-width: 425px) {
-  .menu {
-    padding: auto;
+@media screen and (max-width: 767px) {
+  .navbar {
+    height: 80px;
+    .menu {
+      padding: auto;
+      .navigation {
+        width: auto;
+        .actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+        }
+      }
+      .userInfo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
   }
 }

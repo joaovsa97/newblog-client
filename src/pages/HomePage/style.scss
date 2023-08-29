@@ -4,18 +4,19 @@
   align-items: center;
   justify-content: center;
   min-height: 60vh;
+  width: 100%;
 
   a {
     text-decoration: none;
     color: inherit;
   }
 
-  h1{
+  h1 {
     color: white;
     text-align: center;
     line-height: 4rem;
 
-    button{
+    button {
       margin: 8px;
       font-size: 2rem;
     }
@@ -28,9 +29,9 @@
     background-color: white;
     border-radius: 16px;
     margin: 20px auto;
-    transition: 0.8s;
+    transition: 0.5s;
 
-    width: 60vw;
+    width: 100%;
 
     .image {
       height: 200px;
@@ -54,15 +55,21 @@
       padding: 8px 16px;
 
       .card-header {
-        height: 30%;
-        font-size: 1em;
+        text-align: center;
+        width: 100%;
+        font-size: 1rem;
       }
       .card-body {
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: center;
         padding: 12px;
+        width: 100%;
       }
       .card-footer {
-        height: 20%;
-
+        padding: 0.8rem;
+        width: 100%;
         .date {
           display: flex;
           align-items: center;
@@ -72,20 +79,25 @@
     }
 
     &:hover {
-      transition: 0.8s;
+      transition: 0.5s;
       transform: scale(1.05);
     }
   }
 }
 
-@media screen and (max-width: 425px){
-  .container{
-    .card{
+@media screen and (max-width: 767px) {
+  .container {
+    .card {
       display: flex;
       flex-direction: column;
       width: 80vw;
 
-      .image{
+      .content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .image {
         display: flex;
         align-items: center;
         justify-content: center;

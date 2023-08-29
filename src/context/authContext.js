@@ -17,8 +17,7 @@ export const AuthContextProvider = ({ children }) => {
       header: { "Content-Type": "application/json" },
     });
     setCurrentUser(res.data);
-    document.cookie = res.data.token.split("access_token")
-    
+    // document.cookie = res.data.token.split("access_token")
   };
 
   const logout = async () => {

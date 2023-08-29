@@ -7,7 +7,7 @@ import { useState } from "react";
 const LoginPage = () => {
   const [isEditing, setisEditig] = useState(false);
   return (
-    <div>
+    <div className="container">
       <Login isEditing={isEditing} changeLogin={() => setisEditig(true)} />
       <Register
         isEditing={isEditing}
