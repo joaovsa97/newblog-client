@@ -12,5 +12,8 @@
     align-items: center;
     text-align: center;
     z-index: 99;
-    color: black;
+
+    .spinner-text{
+      color: black;
+    }
   }

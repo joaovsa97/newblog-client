@@ -8,7 +8,7 @@ const Spinner = (props) => {
       <div className="loadingSpinnerContainer">
         <img src={loading} alt="Loading Spinner" />
 
-        <h1>{message}</h1>
+        <h1 className="spinner-text">{message}</h1>
       </div>
     </div>
   );

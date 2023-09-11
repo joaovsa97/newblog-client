@@ -7,7 +7,6 @@ import PostPage from "./pages/PostPage/PostPage.jsx";
 import Write from "./pages/WritePage/Write.jsx";
 import EditPage from "./pages/WritePage/EditPage.jsx";
 import * as filestack from "filestack-js"
-import Cookies from 'js-cookie'
 
 import "./App.scss";
 
