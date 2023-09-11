@@ -58,7 +58,7 @@ const PostPage = (props) => {
                     Publicado por: <b>{post.userId.username}</b>
                   </span>
                   <p>
-                    {format(new Date(post.createdAt), "d/MM/yyyy")}
+                    {format(new Date(post.createdAt), "dd/MM/yyyy")}
                     <span> às </span>
                     {format(new Date(post.createdAt), "HH:mm")}
                   </p>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../../services/api";
 import Button from "../Button/Button";
+import zxcvbn from "zxcvbn";
 
 const Register = (props) => {
   const { isEditing, changeRegister } = props;
@@ -13,34 +14,44 @@ const Register = (props) => {
   const [msg, setMsg] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => setMsg(""), 2000);
-  },[msg])
+    setTimeout(() => setMsg(""), 3000);
+  }, [msg]);
+
+  const checkPasswordStrength = (password) => {
+    const result = zxcvbn(password);
+    return result.score;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (Inputs.password === Inputs.confpw) {
-      try {
-        await api
-          .post("/register", Inputs, {
-            body: JSON.stringify(Inputs),
-            headers: { "Content-Type": "application/json" },
-          })
-          .then(() => changeRegister());
-        setInputs({
-          username: "",
-          email: "",
-          password: "",
-          confpw: "",
-        });
-      } catch (err) {
-        
-        setMsg(err.response.data);
+    const strength = checkPasswordStrength(Inputs.password);
+
+    if (strength >= 3) {
+      if (Inputs.password === Inputs.confpw) {
+        try {
+          await api
+            .post("/register", Inputs, {
+              body: JSON.stringify(Inputs),
+              headers: { "Content-Type": "application/json" },
+            })
+            .then(() => changeRegister());
+          setInputs({
+            username: "",
+            email: "",
+            password: "",
+            confpw: "",
+          });
+        } catch (err) {
+          setMsg(err.response.data);
+        }
+      } else {
+        setMsg("As senhas digitadas não conferem");
       }
     } else {
-      setMsg("As senhas digitadas não conferem");
+      setMsg("Senha muito fraca. Por favor, escolha uma senha mais forte");
     }
   };
-
+  
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
